@@ -13,7 +13,7 @@ on:
 
 jobs:
 
-  build:
+  push:
 
     runs-on: [self-hosted, backup]
 
@@ -27,7 +27,7 @@ jobs:
         run: |
           cd ~
           wg-quick up wg0
-          scp -r dumps/ root@45.33.25.204:/root
+          scp -r "dumps/dump_${{github.event.inputs.day}}-${{github.event.inputs.month}}-2022.sql" root@45.33.25.204:/root
           wg-quick down wg0
           
           
