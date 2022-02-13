@@ -3,6 +3,13 @@ name: Restore
 
 on:
   workflow_dispatch:
+    inputs:
+      month:
+        description: 'month of backup'
+        required: true
+      day:
+        description: 'day of backup'
+        required: true
 
 jobs:
 
