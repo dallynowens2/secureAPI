@@ -1,0 +1,26 @@
+
+name: Restore
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    runs-on: [self-hosted, backup]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          cd ~
+          wg-quick up wg0
+          scp -r dumps/ root@45.33.25.204:/root
+          wg-quick down wg0
+          
+          
