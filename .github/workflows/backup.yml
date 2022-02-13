@@ -32,6 +32,8 @@ jobs:
   
     runs-on: [self-hosted, backup]
     
+    needs: backup
+    
     steps:
       - uses: actions/checkout@v2
       
