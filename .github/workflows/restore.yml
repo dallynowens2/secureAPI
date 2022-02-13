@@ -30,4 +30,16 @@ jobs:
           scp -r "dumps/dump_${{github.event.inputs.day}}-${{github.event.inputs.month}}-2022.sql" root@45.33.25.204:/root
           wg-quick down wg0
           
+  restore:
+    runs-on: [self-hosted, localhost]
+    needs: push
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Restore database
+        run: |
+          cd ~
+          cat "dumps/dump_${{github.event.inputs.day}}-${{github.event.inputs.month}}-2022.sql" | docker exec -i some-postgres psql -U postgres
+          
+          
           
