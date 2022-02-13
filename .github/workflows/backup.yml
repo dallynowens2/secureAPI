@@ -11,8 +11,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+      
+  backup:
     # The type of runner that the job will run on
     runs-on: [self-hosted, backup]
 
@@ -24,13 +24,22 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run backup and pull data
         run: |
-          cd ~
-          ls
-          wg-quick up wg0
-          ssh -tt root@45.33.25.204
           docker exec -t some-postgres pg_dumpall -c -U postgres > dumps/dump_`date +%d-%m-%Y`.sql
-          exit
+
+          
+  pullBackup:
+  
+    runs-on: [self-hosted, backup]
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: pull backup
+        run: |
+          wg-quick up wg0
           scp -r root@45.33.25.204:/root/dumps .
           wg-quick down wg0
+    
+    
           
           
