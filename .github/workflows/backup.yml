@@ -26,7 +26,7 @@ jobs:
         run: |
           cd ~
           ls
-          wg-quick up wg0.conf
+          wg-quick up wg0
           ssh root@45.33.25.204
           docker exec -t some-postgres pg_dumpall -c -U postgres > dumps/dump_`date +%d-%m-%Y`.sql
           exit
