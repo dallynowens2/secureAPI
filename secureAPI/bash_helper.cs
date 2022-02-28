@@ -17,7 +17,7 @@ namespace secureAPI
                 {
                     FileName = "bash",
                     Arguments = $"-c \"{cmd}\"",
-                    UserName = "root",
+                    UserName = "www-data",
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
                     CreateNoWindow = true,

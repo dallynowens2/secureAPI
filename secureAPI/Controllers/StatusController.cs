@@ -12,7 +12,7 @@ namespace secureAPI.Controllers
     {
 
         [HttpGet]
-        public async Task<ActionResult<string>> GetUserInfo()
+        public async Task<string> GetUserInfo()
         {
             string output = await $"systemctl status wg-quick@wg0.service".Bash();
             return output;
