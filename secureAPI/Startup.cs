@@ -34,7 +34,7 @@ namespace secureAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "secureAPI", Version = "v1" });
             });
-            services.AddDbContext<WireGuardContext>(options => options.UseNpgsql(Configuration.GetConnectionString("WireGuardContext"))
+            services.AddDbContext<WireGuardContext>(options => options.UseNpgsql("host=localhost;port=5432;database=some-postgres;username=postgres;password=thisPassword")
             .UseSnakeCaseNamingConvention()
             );
             services.AddCors(options =>
@@ -54,17 +54,17 @@ namespace secureAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
+//            if (env.IsDevelopment())
+//            {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "secureAPI v1");
                     c.RoutePrefix = "";
                     }); 
-            }
+//            }
 
-            app.UseHttpsRedirection();
+           //app.UseHttpsRedirection();
 
             app.UseRouting();
 
