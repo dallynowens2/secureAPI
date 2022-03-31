@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using secureAPI.Data;
@@ -23,12 +24,14 @@ namespace secureAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<UserInfo>>> GetUserInfo()
         {
             return await _context.userInfo.ToListAsync();
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<UserInfo>> GetUserInfo(int id)
         {
             var userInfo = await _context.userInfo.FindAsync(id);
@@ -42,6 +45,7 @@ namespace secureAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<UserInfo>> PostUserInfo(UserInfo userInfo)
         {
             userInfo.salt = new byte[128 / 8];

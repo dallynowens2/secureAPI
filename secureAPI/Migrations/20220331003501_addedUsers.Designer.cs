@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using secureAPI.Data;
@@ -9,9 +10,10 @@ using secureAPI.Data;
 namespace secureAPI.Migrations
 {
     [DbContext(typeof(WireGuardContext))]
-    partial class WireGuardContextModelSnapshot : ModelSnapshot
+    [Migration("20220331003501_addedUsers")]
+    partial class addedUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,40 +45,6 @@ namespace secureAPI.Migrations
                         .HasName("pk_user_info");
 
                     b.ToTable("user_info");
-                });
-
-            modelBuilder.Entity("secureAPI.Models.UserModelInfo", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("icecream")
-                        .HasColumnType("text")
-                        .HasColumnName("icecream");
-
-                    b.Property<string>("nickname")
-                        .HasColumnType("text")
-                        .HasColumnName("nickname");
-
-                    b.Property<string>("topping")
-                        .HasColumnType("text")
-                        .HasColumnName("topping");
-
-                    b.Property<string>("userName")
-                        .HasColumnType("text")
-                        .HasColumnName("user_name");
-
-                    b.Property<string>("visit")
-                        .HasColumnType("text")
-                        .HasColumnName("visit");
-
-                    b.HasKey("id")
-                        .HasName("pk_user_model_info");
-
-                    b.ToTable("user_model_info");
                 });
 
             modelBuilder.Entity("secureAPI.WireGuardInfo", b =>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace secureAPI.Controllers
 
         // GET: api/Wireguard
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<WireGuardInfo>>> GetwireGuardInfo()
         {
             return await _context.wireGuardInfo.ToListAsync();
@@ -30,6 +32,7 @@ namespace secureAPI.Controllers
 
         // GET: api/Wireguard/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<WireGuardInfo>> GetWireGuardInfo(int id)
         {
             var wireGuardInfo = await _context.wireGuardInfo.FindAsync(id);
@@ -45,6 +48,7 @@ namespace secureAPI.Controllers
         // PUT: api/Wireguard/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutWireGuardInfo(int id, WireGuardInfo wireGuardInfo)
         {
             if (id != wireGuardInfo.id)
@@ -76,6 +80,7 @@ namespace secureAPI.Controllers
         // POST: api/Wireguard
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<WireGuardInfo>> PostWireGuardInfo(WireGuardInfo wireGuardInfo)
         {
             _context.wireGuardInfo.Add(wireGuardInfo);
@@ -86,6 +91,7 @@ namespace secureAPI.Controllers
 
         // DELETE: api/Wireguard/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteWireGuardInfo(int id)
         {
             var wireGuardInfo = await _context.wireGuardInfo.FindAsync(id);
