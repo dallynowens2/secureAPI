@@ -46,7 +46,7 @@ namespace secureAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "secureAPI", Version = "v1" });
             });
-            services.AddDbContext<WireGuardContext>(options => options.UseNpgsql("host=localhost;port=5432;database=some-postgres;username=postgres;password=thisPassword")
+            services.AddDbContext<WireGuardContext>(options => options.UseNpgsql()
             .UseSnakeCaseNamingConvention()
             );
             services.AddCors(options =>
