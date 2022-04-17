@@ -28,7 +28,7 @@ namespace secureAPI.Controllers
 
         // GET: api/UserModel
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<UserModelInfo>>> GetUserModelInfo()
         {
             return await _context.userModelInfo.ToListAsync();
@@ -36,6 +36,7 @@ namespace secureAPI.Controllers
 
         // GET: api/UserModel/5
         [HttpGet("{userName}")]
+        [Authorize]
         public async Task<ActionResult<UserModelInfo>> GetUserModelInfo(string userName)
         {
 
@@ -84,6 +85,7 @@ namespace secureAPI.Controllers
         // POST: api/UserModel
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<UserModelInfo>> PostUserModelInfo(UserModelInfo userModelInfo)
         {
             userModelInfo.profilePictureName = await SaveImage(userModelInfo.profilePicture);

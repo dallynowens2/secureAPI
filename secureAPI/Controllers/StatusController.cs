@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace secureAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class StatusController: ControllerBase
     {
 
-        [HttpGet]
-        [Authorize]
-        public async Task<string> GetUserInfo()
-        {
-            string output = await $"systemctl status wg-quick@wg0.service".Bash();
-            return output;
-        }
+        //[HttpGet]
+        //[Authorize]
+        //public async Task<string> GetUserInfo()
+        //{
+        //    string output = await $"systemctl status wg-quick@wg0.service".Bash();
+        //    return output;
+        //}
 
         //[HttpPost]
         //public async Task CreateClientConf(WireGuardInfo client)
