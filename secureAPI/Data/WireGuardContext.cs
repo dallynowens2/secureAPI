@@ -14,5 +14,6 @@ namespace secureAPI.Data
         public DbSet<WireGuardInfo> wireGuardInfo { get; set; }
         public DbSet<UserInfo> userInfo { get; set; }
         public DbSet<UserModelInfo> userModelInfo { get; set; }
+       public DbSet<Comments> comments { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using secureAPI.Data;
@@ -9,9 +10,10 @@ using secureAPI.Data;
 namespace secureAPI.Migrations
 {
     [DbContext(typeof(WireGuardContext))]
-    partial class WireGuardContextModelSnapshot : ModelSnapshot
+    [Migration("20220416234519_CommentsChange")]
+    partial class CommentsChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

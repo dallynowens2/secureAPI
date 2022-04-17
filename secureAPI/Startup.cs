@@ -16,6 +16,8 @@ using secureAPI.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.HttpOverrides;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
 
 namespace secureAPI
 {
@@ -82,7 +84,12 @@ namespace secureAPI
                     }); 
             }
 
-           //app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Images")),
+                RequestPath = "/Images"
+            });
 
             app.UseRouting();
 

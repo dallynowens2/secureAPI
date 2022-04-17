@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,15 +18,17 @@ namespace secureAPI.Controllers
     public class UserModelController : ControllerBase
     {
         private readonly WireGuardContext _context;
+        public static IWebHostEnvironment _environment;
 
-        public UserModelController(WireGuardContext context)
+        public UserModelController(WireGuardContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         // GET: api/UserModel
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<UserModelInfo>>> GetUserModelInfo()
         {
             return await _context.userModelInfo.ToListAsync();
@@ -32,7 +36,6 @@ namespace secureAPI.Controllers
 
         // GET: api/UserModel/5
         [HttpGet("{userName}")]
-        [Authorize]
         public async Task<ActionResult<UserModelInfo>> GetUserModelInfo(string userName)
         {
 
@@ -81,9 +84,9 @@ namespace secureAPI.Controllers
         // POST: api/UserModel
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<UserModelInfo>> PostUserModelInfo(UserModelInfo userModelInfo)
         {
+            userModelInfo.profilePictureName = await SaveImage(userModelInfo.profilePicture);
             _context.userModelInfo.Add(userModelInfo);
             await _context.SaveChangesAsync();
 
@@ -110,6 +113,19 @@ namespace secureAPI.Controllers
         private bool UserModelInfoExists(int id)
         {
             return _context.userModelInfo.Any(e => e.id == id);
+        }
+
+        [NonAction]
+        public async Task<string> SaveImage( IFormFile imageFile)
+        {
+            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
+            var imagePath = Path.Combine(_environment.ContentRootPath, "Images", imageName);
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(fileStream);
+            }
+            return imageName;
         }
     }
 }
